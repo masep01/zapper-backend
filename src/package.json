@@ -1,0 +1,27 @@
+{
+  "name": "zapper-backend",
+  "version": "1.0.0",
+  "description": "pti-2024",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/masep01/zapper-backend.git"
+  },
+  "author": "Zapper Team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/masep01/zapper-backend/issues"
+  },
+  "homepage": "https://github.com/masep01/zapper-backend#readme",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.2.4"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5",
+    "nodemon": "^3.1.0"
+  }
+}
