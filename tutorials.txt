@@ -1,0 +1,7 @@
+YT tutorial MonkeyWit: https://www.youtube.com/watch?v=S4IgPTwwPBw
+
+MongoDB example API: https://www.mongodb.com/languages/express-mongodb-rest-api-tutorial
+
+MongoDB example API (github): https://github.com/mongodb-developer/mongodb-express-rest-api-example
+
+Fazt project: https://github.com/FaztWeb/express-mongodb-crud/blob/master/src/app.js
