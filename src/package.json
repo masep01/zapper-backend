@@ -18,7 +18,8 @@
   "homepage": "https://github.com/masep01/zapper-backend#readme",
   "dependencies": {
     "express": "^4.19.2",
-    "mongoose": "^8.2.4"
+    "mongoose": "^8.2.4",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "dotenv": "^16.4.5",
