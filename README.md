@@ -21,6 +21,11 @@ To run the server simply run and `nodemon` will restart the server every time we
 npm run start
 ```
 
+To test basic endpoints, there is a basic Bash script named `tester.sh`. To print usage run:
+```bash
+./tester.sh
+```
+
 ## Troubleshooting
 In case of getting an error running `npm run start` check current Node version. Try using the Node LTS version with `nvm`.
 ```bash
