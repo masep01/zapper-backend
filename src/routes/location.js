@@ -9,8 +9,7 @@ router.get("/ping", (req,res) => {
 
 // Get close profiles
 router.post("/getProfiles", (req, res) => {
-    
+    const items = JSON.parse(req.body)
+    let user = items[0].username
+    module.exports = router
 })
-const items = JSON.parse(req.body)
-let user = items[0].username
-module.exports = router
