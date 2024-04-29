@@ -53,6 +53,20 @@ elif [ "$1" == "getUser" ]; then
 		curl --no-progress-meter "http://localhost:8080/api/user/$2"
 	fi
 
+elif [ "$1" == "nearUsers" ]; then 
+	if [ "$#" -ne 2 ]; then
+		Usage
+	else
+		curl -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'"}' --no-progress-meter http://localhost:8080/api/getNearUsers
+	fi
+
+elif [ "$1" == "updateLocation" ]; then 
+	if [ "$#" -ne 4 ]; then
+		Usage
+	else
+		curl -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'", "longitude": "'"$3"'", "latitude": "'"$4"'"}' --no-progress-meter http://localhost:8080/api/updateLocation
+	fi
+
 else
 	Usage
 fi

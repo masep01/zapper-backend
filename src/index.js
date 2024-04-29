@@ -1,21 +1,26 @@
 const express = require('express')
-var morgan = require('morgan')
+const morgan = require('morgan')
+const mongoSanitize = require('express-mongo-sanitize')
 require('dotenv').config();
 require('./db/connection.js')
 const userRoutes = require('./routes/user.js')
+const locationRoutes = require('./routes/location.js')
 
 const app = express()
 const port = process.env.PORT
 
-// Middleware
+// Middlewares
 app.use(
   morgan("[#] :method :url :status :res[content-length] - :response-time ms")
 )
+app.use(mongoSanitize())
 app.use(express.json())
+
 app.use('/api', userRoutes)
+app.use('/api', locationRoutes)
 
 // Test path
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.send('Zapper PATH:  /')
 })
 

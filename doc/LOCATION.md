@@ -34,3 +34,5 @@ Location collection stored in the database will have the fields declared above:
 
 + **latitude:** The coordinate of users current latitude. 
 
+## API ENDPOINTS
+
