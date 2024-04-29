@@ -30,10 +30,10 @@ if [ "$#" -lt 1 ]; then
 	Usage
 
 elif [ "$1" == "newUser" ]; then
-	if [ "$#" -ne 3 ]; then
+	if [ "$#" -ne 5 ]; then
 		Usage
 	else
-		curl -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'", "password": "'"$3"'"}' --no-progress-meter http://localhost:8080/api/newUser | jq
+		curl -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'", "password": "'"$3"'", "email": "'"$4"'", "age": "'"$5"'"}' --no-progress-meter http://localhost:8080/api/register | jq
 	fi
 
 elif [ "$1" == "deleteUser" ]; then
