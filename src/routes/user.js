@@ -7,8 +7,8 @@ router.get("/pingUser", (req,res) => {
     res.send("pong")
 })
 
-// Enpoint to register a new user
-router.post("/register", async (req, res) =>{
+// Endpoint to register a new user
+router.post("/register", async (req, res) => {
     try {
         let { username, email, password, age } = req.body
         let user = new User ({
@@ -25,6 +25,27 @@ router.post("/register", async (req, res) =>{
         console.log('[!]Error in new user register: ' + error)
         res.status(500)
         res.json( {'error': 'Error 500. Internal Server Error'} )
+    }
+})
+
+// Endpoint to login with an existing user 
+router.post("/login", async (req, res) => {
+    try { 
+        let { username, password } = req.body 
+        let user = await User.findOne({'username':username, 'password':password })
+        if (user) {
+            res.status(200)
+            res.json( {'message': 'Login successfull!'} )
+        }
+        else {
+            res.status(401)
+            res.json({'error': 'Error 401. Unauthorized'})
+        }  
+    }
+    catch (error) {
+        console.log('[!] Error in the login process: ' + error)
+        res.status(500)
+        res.json({'error': 'Error 500. Internal Server Error'})
     }
 })
 
