@@ -74,6 +74,20 @@ elif [ "$1" == "updateLocation" ]; then
 		curl -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'", "longitude": "'"$3"'", "latitude": "'"$4"'"}' --no-progress-meter http://localhost:8080/api/updateLocation
 	fi
 
+elif [ "$1" == "updateUserInfo" ]; then 
+	if [ "$#" -gt 4 ]; then
+		Usage
+	else
+		curl -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'", "instagram": "'"$3"'", "twitter": "'"$4"'"}' --no-progress-meter http://localhost:8080/api/updateUserInfo
+	fi
+
+elif [ "$1" == "getUserInfo" ]; then 
+	if [ "$#" -ne 2 ]; then
+		Usage
+	else
+		curl -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'"}' --no-progress-meter http://localhost:8080/api/getUserInfo
+	fi
+
 else
 	Usage
 fi

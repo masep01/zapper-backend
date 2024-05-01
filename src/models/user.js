@@ -40,35 +40,31 @@ const userSchema = mongoose.Schema({
 
 //2dsphere index on location field to enable MongoDB 
 //Efficiently perform geospatial queries
-userSchema.index({ location: '2dsphere' })
+userSchema.index({location: '2dsphere'})
 
 //Function to get the MongoDB ID of the user with username = name
 userSchema.statics.idByName = function(name) {
     return this.findOne({ username: name }).select('_id')
 }
 
-//Function to find near users given a geographical point and a radius
-//The user that invokes the method is excluded from the result
-userSchema.statics.findNearUsers = function (radiusInMeters, username) {
-    if (this.location) {
-        const radiusInRadians = radiusInMeters / 6371000 // Radius in meters / Earth Radius
-        let longitude = this.location.coordinates.longitude
-        let latitude = this.location.coordinates.latitude
-        
-        return this.find({
+userSchema.statics.findNearUsers = async function(username, radiusInMeters) {
+    let user = await this.findOne({'username': username})
+    if (user.location) {
+        const { coordinates } = user.location
+        return await this.find({
             location: {
                 $nearSphere: {
                     $geometry: {
                         type: 'Point',
-                        coordinates: [longitude, latitude]
+                        coordinates: coordinates
                     },
-                    $maxDistance: radiusInRadians
-                }    
+                    $maxDistance: radiusInMeters
+                }
             },
             username: { $ne: username }
-        }).select( {'username': 1, '_id': 0} )
+        }).select({ 'username': 1, '_id': 0 })
     }
-    else return [] 
+    else return []
 }
 
 //Function to get the location of a user given his username
