@@ -32,6 +32,7 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
     try { 
         let { username, password } = req.body 
+	console.log(username+" "+password)
         let user = await User.findOne({'username':username, 'password':password })
         if (user) {
             res.status(200)
