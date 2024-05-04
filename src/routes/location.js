@@ -4,21 +4,26 @@ const User = require('../models/user')
 const router = express.Router()
 
 // Global variables
-const radius = 10
+const radius = 10.0
 
 // Test endpoint
 router.get("/LocationPing", (_req,res) => {
     res.send("pong")
 })
 
-//Updates the location of a user
+// Enpoint to update the location of a user
 router.post("/updateLocation", async (req, res) => {
     try {
         let { username, longitude, latitude } = req.body
         let user = await User.findOne({'username': username})
-        user.location = {
-            type: 'Point', 
-            coordinates: [longitude, latitude]
+        if (!user.location) {
+            user.location = {
+                type: 'Point', 
+                coordinates: [longitude, latitude]
+            }
+        }
+        else {
+            user.location.coordinates = [longitude, latitude]
         }
         await user.save()
         res.status(200)
@@ -31,19 +36,19 @@ router.post("/updateLocation", async (req, res) => {
     }
 })
 
-// Get close profiles
+// Endpoint to get near user profiles 
 router.post("/getNearUsers", async (req, res) => {
     try {
-        let { username, longitude, latitude } = req.body
-        let nearUsers = await User.findNearUsers(longitude, latitude, radius, username)
-        console.log(nearUsers)
+        let username = req.body.username
+        let users = await User.findNearUsers(username, radius)
+        console.log(users)
         res.status(200)
-        res.send("AYIYIYIYYUYI")
+        res.json({nearUsers: users})
     }
     catch (error) {
         console.log('[!] Error getting near users profiles: ' + error)
         res.status(500)
-        res.json({ error: '500. Internal Server Error' })
+        res.json({error: '500. Internal Server Error'})
     }
 })
 
