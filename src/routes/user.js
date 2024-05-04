@@ -51,7 +51,7 @@ router.post("/login", async (req, res) => {
 
 // Get users
 router.get("/users", (req,res) => {
-    userSchema
+    User
         .find()
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }))
