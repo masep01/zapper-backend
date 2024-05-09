@@ -4,7 +4,7 @@ const User = require('../models/user')
 const router = express.Router()
 
 // Global variables
-const radius = 10.0
+const radius = 100.0
 
 // Test endpoint
 router.get("/LocationPing", (_req,res) => {
