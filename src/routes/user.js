@@ -57,4 +57,19 @@ router.get("/users", (req,res) => {
         .catch((error) => res.json({ message: error }))
 })
 
+// Delete the user identified by "username"
+router.post("/deleteUser", async (req, res) => {
+    try {
+        let name = req.body.username;
+        await User.deleteOne({'username': name})
+        res.status(200) 
+        res.json({'message': 'User ' + name + ' successfully deleted'})
+    } 
+    catch (error) {
+        console.log('[!] Error deleting a user: ' + error)
+        res.status(500)
+        res.json({'error': 'Error 500. Internal Server Error'})
+    } 
+})
+
 module.exports = router

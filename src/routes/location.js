@@ -11,7 +11,7 @@ router.get("/LocationPing", (_req,res) => {
     res.send("pong")
 })
 
-// Enpoint to update the location of a user
+// Endpoint to update the location of a user
 router.post("/updateLocation", async (req, res) => {
     try {
         let { username, longitude, latitude } = req.body
@@ -41,7 +41,6 @@ router.post("/getNearUsers", async (req, res) => {
     try {
         let username = req.body.username
         let users = await User.findNearUsers(username, radius)
-        console.log(users)
         res.status(200)
         res.json({nearUsers: users})
     }

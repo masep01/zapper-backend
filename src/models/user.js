@@ -58,7 +58,8 @@ userSchema.statics.findNearUsers = async function(username, radiusInMeters) {
                 }
             },
             username: { $ne: username }
-        }).select({ 'username': 1, '_id': 0 })
+        }).select({ 'username': 1, 'location': 1,
+        'age': 1, 'profiles': 1, '_id': 0 })
     }
     else return []
 }
