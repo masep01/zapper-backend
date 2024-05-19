@@ -40,7 +40,7 @@ elif [ "$1" == "deleteUser" ]; then
 	if [ "$#" -ne 2 ]; then
 		Usage
 	else
-		curl -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'"}' --no-progress-meter http://localhost:8080/api/deleteUser
+		curl -k -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'"}' --no-progress-meter https://gloom.fib.upc.edu/api/deleteUser
 	fi
 
 elif [ "$1" == "list" ]; then
@@ -64,7 +64,7 @@ elif [ "$1" == "nearUsers" ]; then
 	if [ "$#" -ne 2 ]; then
 		Usage
 	else
-		curl -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'"}' --no-progress-meter http://localhost:8080/api/getNearUsers
+		curl -k 	-X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'"}' --no-progress-meter https://gloom.fib.upc.edu/api/getNearUsers
 	fi
 
 elif [ "$1" == "updateLocation" ]; then 
