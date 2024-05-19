@@ -41,7 +41,6 @@ router.post("/getNearUsers", async (req, res) => {
     try {
         let username = req.body.username
         let users = await User.findNearUsers(username, radius)
-        console.log(users)
         res.status(200)
         res.json({nearUsers: users})
     }

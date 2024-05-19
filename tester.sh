@@ -36,11 +36,11 @@ elif [ "$1" == "newUser" ]; then
 		curl -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'", "password": "'"$3"'", "email": "'"$4"'", "age": "'"$5"'"}' --no-progress-meter http://localhost:8080/api/register | jq
 	fi
 
-elif [ "$1" == "deleteUser" ]; then
+elif [ "$1" == "deleteUser" ]; then 
 	if [ "$#" -ne 2 ]; then
 		Usage
 	else
-		curl --no-progress-meter "http://localhost:8080/api/deleteUser/$2"
+		curl -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'"}' --no-progress-meter http://localhost:8080/api/deleteUser
 	fi
 
 elif [ "$1" == "list" ]; then
