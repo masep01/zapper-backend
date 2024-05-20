@@ -10,12 +10,16 @@ router.get("/pingUser", (req,res) => {
 // Endpoint to register a new user
 router.post("/register", async (req, res) => {
     try {
-        let { username, email, password, age } = req.body
+        let { username, email, password, age, instagram, twitter} = req.body
         let user = new User ({
             username: username,
             password: password,
             email: email, 
-            age: age
+            age: age,
+            profiles: {
+                instagram: instagram, 
+                twitter: twitter
+            }
         })
         await user.save()
         res.status(200)

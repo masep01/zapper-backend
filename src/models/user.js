@@ -42,11 +42,7 @@ const userSchema = mongoose.Schema({
 //Efficiently perform geospatial queries
 userSchema.index({location: '2dsphere'})
 
-//Function to get the MongoDB ID of the user with username = name
-userSchema.statics.idByName = function(name) {
-    return this.findOne({ username: name }).select('_id')
-}
-
+//Function to find near users to the user identified by username
 userSchema.statics.findNearUsers = async function(username, radiusInMeters) {
     let user = await this.findOne({'username': username})
     if (user.location) {
@@ -66,11 +62,6 @@ userSchema.statics.findNearUsers = async function(username, radiusInMeters) {
         'age': 1, 'profiles': 1, '_id': 0 })
     }
     else return []
-}
-
-//Function to get the location of a user given his username
-userSchema.statics.userLocation = function (username) {
-    return this.findOne({ user: username }).select( {'location.coordinates': 1, '_id': 0})
 }
 
 module.exports = mongoose.model('User', userSchema)

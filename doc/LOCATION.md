@@ -1,38 +1,42 @@
 # USER LOCATION
 
-The content of this document includes all the steps done in our project related with server-side user location management. 
+## USER SCHEMA
 
-## MONGOOSE SCHEMA
-
-The first step is to create a mongoose schema that defines the contents to be stored inside the MongoDB database.
-
-```js 
-const mongoose = require('mongoose')
-const User = require('./user')
-
-const locationSchema = mongoose.Schema({
-    user: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: User,
-    }, 
-    longitude: {
-        type: Number, 
-        required: true, 
+```js
+location: {
+        type: {
+            type: String,
+            enum: ['Point']
+        },
+        coordinates: {
+            type: [Number], 
+        }
     },
-    latitude: {
-        type: Number, 
-        required: true, 
-    },
-})
 ```
+Inside the user schema is defined the **location** attribute. This is a complex JSON element that has two nested values:
 
-Location collection stored in the database will have the fields declared above:
+ - **type**, a String that must be equivalent to ***'Point'***. 
 
-+ **user:** It will reference to the ObjectId of the user which location is being registered. 
+ - **coordinates**, a number array, which has only two elements: ***longitude*** in the first position, and ***latitude*** in the last one. 
 
-+ **longitude:** The coordinate of users current longitude . 
+```js
+userSchema.index({location: '2dsphere'})
+```
+In order to perform geospatial queries on an earth-like sphere, a  **2dsphere index** must be created on our location field. To do it, the previous line needs to be present in the model definition. Stored data related with location will be converted to **GeoJSON points**, the required type, by MongoDB.
 
-+ **latitude:** The coordinate of users current latitude. 
+The **2dsphere index** allows our application to: 
 
-## API ENDPOINTS
++ Determine points within a specified area.
+
++ Calculate proximity to a specified point.
+
++ Return exact matches on coordinate queries.
+
+These are the operations needed to discover near users given a radius.
+
+Finally, we declare a static function for all the instances of the model. This method will obtain all users within a circumference, which center is defined by the location point. 
+
+
+
+
 
