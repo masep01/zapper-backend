@@ -1,8 +1,9 @@
-# Zapper Backend
+# Zapper Backend - Development
 ## Modules
 - **Nodemon:** auto-startup server when we save changes.
 - **Mongoose:** module to connect with Atlas.
 - **Dotenv:** create custom enviornment variables.
+- **Mongo-sanitize**: module that sanitizes inputs against query selector injection attacks.
 - **Morgan:** log requests.
 
 ## Atlas Cloud MongoDB

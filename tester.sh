@@ -30,17 +30,10 @@ if [ "$#" -lt 1 ]; then
 	Usage
 
 elif [ "$1" == "newUser" ]; then
-	if [ "$#" -ne 3 ]; then
+	if [ "$#" -ne 5 ]; then
 		Usage
 	else
-		curl -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'", "password": "'"$3"'"}' --no-progress-meter http://localhost:8080/api/newUser | jq
-	fi
-
-elif [ "$1" == "deleteUser" ]; then
-	if [ "$#" -ne 2 ]; then
-		Usage
-	else
-		curl --no-progress-meter "http://localhost:8080/api/deleteUser/$2"
+		curl -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'", "password": "'"$3"'", "email": "'"$4"'", "age": "'"$5"'"}' --no-progress-meter http://localhost:8080/api/register | jq
 	fi
 
 elif [ "$1" == "list" ]; then
@@ -51,6 +44,48 @@ elif [ "$1" == "getUser" ]; then
 		Usage
 	else
 		curl --no-progress-meter "http://localhost:8080/api/user/$2"
+	fi
+
+elif [ "$1" == "login" ]; then 
+	if [ "$#" -ne 3 ]; then
+		Usage
+	else
+		curl -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'", "password": "'"$3"'"}' --no-progress-meter http://localhost:8080/api/login
+	fi
+
+elif [ "$1" == "nearUsers" ]; then 
+	if [ "$#" -ne 2 ]; then
+		Usage
+	else
+		curl -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'"}' --no-progress-meter http://localhost:8080/api/getNearUsers
+	fi
+
+elif [ "$1" == "updateLocation" ]; then 
+	if [ "$#" -ne 4 ]; then
+		Usage
+	else
+		curl -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'", "longitude": "'"$3"'", "latitude": "'"$4"'"}' --no-progress-meter http://localhost:8080/api/updateLocation
+	fi
+
+elif [ "$1" == "updateUserInfo" ]; then 
+	if [ "$#" -gt 4 ]; then
+		Usage
+	else
+		curl -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'", "instagram": "'"$3"'", "twitter": "'"$4"'"}' --no-progress-meter http://localhost:8080/api/updateUserInfo
+	fi
+
+elif [ "$1" == "getUserInfo" ]; then 
+	if [ "$#" -ne 2 ]; then
+		Usage
+	else
+		curl -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'"}' --no-progress-meter http://localhost:8080/api/getUserInfo
+	fi
+
+elif [ "$1" == "deleteUser" ]; then 
+	if [ "$#" -ne 2 ]; then
+		Usage
+	else
+		curl -X POST -H "Content-Type: application/json" -d '{"username": "'"$2"'"}' --no-progress-meter http://localhost:8080/api/deleteUser
 	fi
 
 else
