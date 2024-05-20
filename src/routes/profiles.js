@@ -12,8 +12,7 @@ router.get("/ProfilesPing", (_req, res) => {
 //Endopoint to update user profile information
 router.post("/updateUserInfo", async (req, res) => {
     try {
-        let { username, instagram,  twitter } = req.body
-        console.log(username + " " + instagram + " " + twitter)
+        let { username, instagram, twitter, email } = req.body
         let user = await User.findOne({'username': username})
         if (!user.profiles) {
             user.profiles = {
@@ -25,6 +24,7 @@ router.post("/updateUserInfo", async (req, res) => {
             user.profiles.instagram = instagram
             user.profiles.twitter = twitter
         }
+        user.email = email
         await user.save()
         res.status(200)
         res.json({message: 'User info successfully updated!'})
@@ -41,7 +41,8 @@ router.post('/getUserInfo', async (req, res) => {
     try{
         let username = req.body.username
         let info = await User.findOne({'username': username}).select({
-            'username': 1, 
+            'username': 1,
+            'email': 1,  
             'age': 1,
             'profiles': 1, 
             '_id': 0
