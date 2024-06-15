@@ -1,19 +1,12 @@
-# Zapper Backend - Development
+# Zapper Backend
+This repository contains a REST API for Zapper, a course project for PTI @FIB(UPC) 23-24.
+
 ## Modules
 - **Nodemon:** auto-startup server when we save changes.
 - **Mongoose:** module to connect with Atlas.
 - **Dotenv:** create custom enviornment variables.
 - **Mongo-sanitize**: module that sanitizes inputs against query selector injection attacks.
 - **Morgan:** log requests.
-
-## Atlas Cloud MongoDB
-+ **Correu:** josep.antoni.martinez.garcia@estudiantat.upc.edu
-+ **Password:** cUthaFlAISRGNU14ViQK
-
-
-## Usuari DB
-+ **User:** zapperadmin
-+ **Password:** UEFXaVJVV3pCbndZZXRzVgo= 
 
 ## How to test
 
